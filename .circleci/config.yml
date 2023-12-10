@@ -3,7 +3,7 @@ jobs:
   build-arm64:
     docker:
       - image: cimg/base:current
-    resource_class: medium
+    resource_class: arm.medium
     steps:
       - checkout
       - setup_remote_docker:
@@ -16,7 +16,7 @@ jobs:
   build-amd64:
     docker:
       - image: cimg/base:current
-    resource_class: arm.medium
+    resource_class: medium
     steps:
       - checkout
       - setup_remote_docker:
