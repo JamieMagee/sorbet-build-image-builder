@@ -1,0 +1,26 @@
+version: 2.1
+jobs:
+  build_arm64:
+    docker:
+      - image: cimg/base:current
+    branches:
+      only: main
+    resource_class: medium
+    steps:
+      - run:
+          name: Build and publish amd64 image
+          command: |
+            echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
+            PUBLISH=true ./build.sh
+  build_amd64:
+    docker:
+      - image: cimg/base:current
+    branches:
+      only: main
+    resource_class: arm.medium
+    steps:
+      - run:
+          name: Build and publish arm64 image
+          command: |
+            echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
+            PUBLISH=true ./build.sh
