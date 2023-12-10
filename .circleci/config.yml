@@ -1,10 +1,8 @@
 version: 2.1
 jobs:
-  build_arm64:
+  build-arm64:
     docker:
       - image: cimg/base:current
-    branches:
-      only: main
     resource_class: medium
     steps:
       - run:
@@ -12,11 +10,9 @@ jobs:
           command: |
             echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
             PUBLISH=true ./build.sh
-  build_amd64:
+  build-amd64:
     docker:
       - image: cimg/base:current
-    branches:
-      only: main
     resource_class: arm.medium
     steps:
       - run:
@@ -24,3 +20,14 @@ jobs:
           command: |
             echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
             PUBLISH=true ./build.sh
+workflows:
+  build:
+    jobs:
+      - build-arm64:
+          filters:
+            branches:
+              only: main
+      - build-amd64:
+          filters:
+            branches:
+              only: main
