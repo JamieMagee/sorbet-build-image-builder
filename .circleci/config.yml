@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build and publish amd64 image
+          name: Build and publish arm64 image
           command: |
             echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
             PUBLISH=true ./build.sh
@@ -22,7 +22,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build and publish arm64 image
+          name: Build and publish amd64 image
           command: |
             echo $CR_PAT | docker login ghcr.io -u sorbet-multiarch-bot --password-stdin
             PUBLISH=true ./build.sh
